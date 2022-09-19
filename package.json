@@ -1,0 +1,25 @@
+{
+  "name": "myspaceworm",
+  "version": "1.0.0",
+  "description": "Simple MySpace clone vulnerable to a myspace worm.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stevens-Cyber-Defense-Team/MySpaceWorm.git"
+  },
+  "author": "Stevens Cyber Defense Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stevens-Cyber-Defense-Team/MySpaceWorm/issues"
+  },
+  "homepage": "https://github.com/Stevens-Cyber-Defense-Team/MySpaceWorm#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.9.1"
+  }
+}
