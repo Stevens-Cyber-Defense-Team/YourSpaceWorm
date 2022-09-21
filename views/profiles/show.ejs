@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="inner-container">
+        <h1><%=profile.name%>'s Profile </h1>
+        <hr>
+        <% if (postAccess == true) { %>
+            <div class="card mb-5">
+                <h5 class="card-header">Create Post</h5>
+                <div class="card-body">
+                    <form id="post-form" action="/createPost" method="POST">
+                        <div class="form-group mb-3">
+                            <label for="title">Title</label>
+                            <input name="title" type="text" class="form-control" id="title" placeholder="Title">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="content">Content</label>
+                            <textarea name="content" class="form-control" id="content" rows="3"></textarea>
+                        </div>
+                        <p id="err-message" class=" alert-danger"></p>
+                        <p id="succ-message" class=" alert-success"></p>
+                        <button type="submit" class="btn btn-primary px-5">Post</button>
+                    </form>
+                </div>
+            </div>
+
+                <script>
+                    const form = document.getElementById('post-form');
+
+                    form.addEventListener('submit', createPost);
+
+                    async function createPost(event) {
+                        //Get form fields
+                        const errorMessage = document.getElementById('err-message');
+                        const successMessage = document.getElementById('succ-message');
+                        const title = document.getElementById('title');
+                        const content = document.getElementById('content');
+
+                        event.preventDefault();
+
+                        errorMessage.innerHTML = "";
+                        successMessage.innerHTML ="";
+
+                        const result = await fetch('/createPost', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                title: title.value,
+                                content: content.value
+                            })
+                        }).then((res) => res.json());
+
+                        //Server responce check
+                        if (result.status === 500) {
+                            errorMessage.classList.add('alert');
+                            errorMessage.innerHTML = result.e;
+                            successMessage.classList.remove('alert');
+                        }
+                        else {
+                            successMessage.classList.add('alert');
+                            successMessage.innerHTML = "Post successfully created"
+                            errorMessage.classList.remove('alert');
+                        }
+                    }
+                </script>
+        <%} %>
+        <% profile.timeline.forEach(post => { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                <h5 class="card-title"><%- post.title %></h5>
+                <p class="card-text"><%- post.content %></p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>

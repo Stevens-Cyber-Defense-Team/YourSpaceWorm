@@ -3,12 +3,17 @@ const router = express.Router();
 const data = require('../data');
 const users = data.users;
 const profiles = data.profiles;
+
+router.route('/').get((req,res) => {
+    res.redirect('/login')
+})
+
 router.route('/signup')
 .get(async (req, res) => {
 
     // serve signup page
     try{
-
+        res.render('signup')
     }catch(e){
         //render error alert or page or something
         console.error(e);
@@ -40,7 +45,7 @@ router.route('/login')
 .get(async (req, res) => {
     // serve login page
     try{
-        
+        res.render('login')
     }catch(e){
         //render error alert or page or something
     }
@@ -57,21 +62,21 @@ router.route('/login')
             // res.redirect('../private');
             // TODO anywhere we want to go after we log in
             // maybe our profile or something
-            res.status(200).json({"message": "logged in"})
+            res.redirect('/profiles')
         }else{
             res.status(500).json({'status': 500, 'message': 'something went wrong', 'e': e});
         }
 
     }catch(e){
         console.error(e);
-        res.status(400).json({'status': 400, 'message': 'error logging in', 'e': e});
+        res.render('login', {error: e});
     }
 });
 router.route('/logout')
 .get(async (req,res) =>{
     try{
         req.session.destroy();
-        res.json({status: 200, message: 'logged out'})
+        res.redirect('/login')
 
         // res.render('loggedout', {title: "Log Out Screen", message: "Successfully logged out"})   
     }catch(e){
@@ -86,9 +91,13 @@ router.route('/profiles/:id')
 .get(async (req, res) => {
     // get profile by id
     try{
+        let postAccess = false;
         const id = req.params.id;
         const profile = await profiles.getProfileById(id);
-        res.status(200).json(profile)
+        if(profile.username == req.session.username) {
+            postAccess = true;
+        }
+        res.render('profiles/show', {profile: profile, postAccess: postAccess});
     }catch(e){
         //render error alert or page or something
         console.error(e);
@@ -101,12 +110,11 @@ router.route('/profiles')
     // get all profiles
     try{
         const profileList = await profiles.getProfiles();
-        res.status(200).json({status: 200, profiles: profileList})
+        res.render('profiles/showAll', {profiles: profileList});
         //render something
     }catch(e){
         //render error alert or page or something
-        console.error(e);
-        res.status(400).json({'status': 500, 'message': 'something went wrong', 'e': e});
+        res.redirect('/login');
     }
 });
 

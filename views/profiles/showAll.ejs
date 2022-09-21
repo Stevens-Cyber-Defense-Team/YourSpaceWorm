@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="inner-container">
+        <h1>All Profiles</h1>
+        <hr>
+        <% profiles.forEach(profile => { %>
+            <div class="card mb-4">
+                <div class="card-body">
+                <h5 class="card-title"><%= profile.name %></h5>
+                <a href="/profiles/<%= profile._id %>" class="btn btn-primary">Visit my Page</a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>

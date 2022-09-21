@@ -1,0 +1,25 @@
+@import 'shared/signup.css';
+
+
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fullscreen {
+    width: 100vw;
+    height: 90vh;
+}

@@ -1,0 +1,22 @@
+<div class="container centered-container fullscreen">
+    <form class="form-signin" action="/login" method="POST">
+        <h2>Login</h2>
+        <hr>
+        <div class="form-group mb-2">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" value=""  required>
+        </div>
+        <div class="form-group mb-2">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" value=""  required>
+        </div>
+        <% if (locals.error) { %>
+            <div class="form-group mb-2">
+                <p class="alert alert-danger"> <%= locals.error %> </p>
+            </div>
+        <% } %>
+        <div class="form-group my-4">
+            <button type="submit" class="btn btn-primary signin-button">Login</button>
+        </div>
+    </form>
+</div>

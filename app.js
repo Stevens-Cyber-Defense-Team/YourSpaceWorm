@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
 const configRoutes = require('./routes');
+const expressLayouts = require('express-ejs-layouts')
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.set('layout', 'layouts/layout');
+app.use(expressLayouts);
+app.use(express.static('public'));
 
 /* 
     what I use for express handlebars
@@ -52,7 +58,7 @@ app.use('/ping', (req, res) => {
 
 configRoutes(app);
 
-app.listen(3000, async () => {
+app.listen(3000, "0.0.0.0" , async () => {
     console.log("We've now got a server!");
     console.log('Your routes will be running on http://localhost:3000');
 });
