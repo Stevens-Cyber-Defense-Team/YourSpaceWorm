@@ -1,12 +1,19 @@
 <div class="container">
+    <div class="inner-container d-flex justify-content-between align-items-center">
+        <h1 class="text-center">Hi <%=profile.name%> </h1>
+        <a href="/profiles/<%= profile._id %>" class="btn btn-primary">Visit my Page</a>
+    </div>
+    <hr>
+
+    <p class="mb-5"> Welcome to YourSpace. Check out everyone's page below!</p>
     <div class="inner-container">
-        <h1>All Profiles</h1>
+        <h3>All Profiles</h3>
         <hr>
-        <% profiles.forEach(profile => { %>
+        <% profiles.forEach(currProfile => { %>
             <div class="card mb-4">
                 <div class="card-body">
-                <h5 class="card-title"><%= profile.name %></h5>
-                <a href="/profiles/<%= profile._id %>" class="btn btn-primary">Visit my Page</a>
+                <h5 class="card-title"><%= currProfile.name %></h5>
+                <a href="/profiles/<%= currProfile._id %>" class="btn btn-primary">Visit Page</a>
                 </div>
             </div>
         <% }); %>

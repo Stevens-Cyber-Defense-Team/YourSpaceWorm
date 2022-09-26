@@ -30,13 +30,16 @@ app.use(session({
   name: 'AuthCookie',
   secret: 'some secret string!',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: false
+  }
 }));
 
 app.use('/profiles', (req, res, next) => {
     // the profiles routes will be protected and will only be accessible after logging in
     if (!req.session.username) {
-      return res.status(403).render('error', {'error': 'You are not logged in!'});
+      return res.redirect('/login');
     } else {
       next();
     }

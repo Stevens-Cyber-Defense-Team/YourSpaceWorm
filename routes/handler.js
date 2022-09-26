@@ -110,10 +110,12 @@ router.route('/profiles')
     // get all profiles
     try{
         const profileList = await profiles.getProfiles();
-        res.render('profiles/showAll', {profiles: profileList});
+        const profile = await profiles.getProfileById(req.session.userId);
+        res.render('profiles/showAll', {profile: profile, profiles: profileList});
         //render something
     }catch(e){
         //render error alert or page or something
+        console.log(e);
         res.redirect('/login');
     }
 });
