@@ -35,6 +35,7 @@ The website posts are vulnerable to stored xxs. Users can put js code into both 
 <!-- Title -->
 <span class="worm-title">Mike Zylka is the coolest person out there. Go visit his site. </span>
 ```
+<sub><sup>*\* Farhan does not approve this message*</sup></sub>
 ### Content
 ```html
 <!-- Content -->
